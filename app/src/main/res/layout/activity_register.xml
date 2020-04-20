@@ -1,0 +1,170 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/gray_background"
+    android:orientation="vertical"
+    android:id="@+id/content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:background="#ffffff">
+
+
+        <TextView
+            android:id="@+id/tv_account"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:gravity="center_vertical"
+            android:letterSpacing="0.05"
+            android:lines="1"
+            android:paddingLeft="16dp"
+            android:text="帐号："
+            android:textColor="@color/text_black"
+            android:textSize="18dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <EditText
+            android:id="@+id/et_account"
+            android:layout_width="240dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="请输入手机号"
+            android:inputType="phone"
+            android:lines="1"
+            android:maxLength="11"
+            android:textColor="@color/text_black"
+            android:textSize="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/tv_account"
+            />
+
+        <TextView
+            android:id="@+id/tv_password"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:gravity="center_vertical"
+            android:lines="1"
+            android:paddingLeft="16dp"
+            android:text="密码："
+            app:layout_constraintTop_toBottomOf="@+id/tv_account"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:textColor="@color/text_black"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_width="240dp"
+            android:layout_height="48dp"
+           app:layout_constraintTop_toBottomOf="@+id/et_account"
+            app:layout_constraintLeft_toRightOf="@+id/tv_password"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="20dp"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="请输入密码"
+            android:inputType="textPassword"
+            android:lines="1"
+            android:textColor="@color/text_black"
+            android:textColorHint="@color/text_hint_color"
+            android:textSize="16dp"
+            />
+
+        <TextView
+
+            android:id="@+id/tv_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:gravity="center_vertical"
+            android:lines="1"
+            android:paddingLeft="16dp"
+            android:text="姓名："
+            android:textColor="@color/text_black"
+            android:textSize="18dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_password"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <EditText
+            android:id="@+id/et_nickname"
+            android:layout_width="240dp"
+            android:layout_height="48dp"
+            app:layout_constraintLeft_toRightOf="@+id/tv_nickname"
+            app:layout_constraintTop_toBottomOf="@+id/tv_password"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="请输入姓名"
+            android:letterSpacing="0.05"
+            android:lines="1"
+            android:maxLength="11"
+            android:textColor="@color/text_black"
+            android:textSize="16dp"
+            />
+        <TextView
+
+            android:id="@+id/tv_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:gravity="center_vertical"
+            android:lines="1"
+            android:paddingLeft="16dp"
+            android:text="性别："
+            android:textColor="@color/text_black"
+            android:textSize="18dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_nickname"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <RadioGroup
+            android:id="@+id/rd_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="4dp"
+           app:layout_constraintTop_toBottomOf="@+id/tv_nickname"
+            app:layout_constraintLeft_toRightOf="@+id/tv_gender">
+
+            <RadioButton
+                android:id="@+id/rb_boy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="男"
+                android:textColor="@color/text_black"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/rb_girl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="女"
+                android:textColor="@color/text_black"
+                android:textSize="16sp" />
+        </RadioGroup>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="12dp"
+        android:background="#0180c8"
+        android:gravity="center"
+        android:text="注册"
+        android:textColor="#ffffff"/>
+
+</LinearLayout>
+
