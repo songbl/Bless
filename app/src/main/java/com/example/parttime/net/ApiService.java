@@ -1,7 +1,9 @@
 package com.example.parttime.net;
 
 
+import com.example.parttime.entity.node.ContactsEntity;
 import com.example.parttime.entity.node.Group;
+import com.example.parttime.entity.node.GroupEntity;
 import com.example.parttime.entity.node.InfoMail;
 import com.example.parttime.entity.node.UserEntity;
 import com.example.parttime.net.bean.LoginBean;
@@ -40,5 +42,43 @@ public interface ApiService {
      */
     @POST("app/getBlessInfos")
     Observable<List<InfoMail>> getBlessInfos(@Body UserBean map);
+
+    /**
+     *  修改组
+     */
+    @POST("app/updateContactsGroup")
+    Observable<Boolean> updateGroup(@Body GroupEntity map);
+
+    /**
+     *  新建组
+     */
+    @POST("app/addContactsGroup")
+    Observable<Boolean> addContactsGroup(@Body GroupEntity map);
+
+    /**
+     *  修改组
+     */
+    @POST("app/deleteContactsGroup")
+    Observable<Boolean> deleteGroup(@Body GroupEntity map);
+
+
+
+    /**
+     *  修改联系人
+     */
+    @POST("app/updateContacts")
+    Observable<Boolean> updateContacts(@Body ContactsEntity map);
+
+    /**
+     *  新建联系人
+     */
+    @POST("app/addContacts")
+    Observable<Boolean> addContacts(@Body ContactsEntity map);
+
+    /**
+     *  修改联系人
+     */
+    @POST("app/deleteContacts")
+    Observable<Boolean> deleteContacts(@Body ContactsEntity map);
 
 }

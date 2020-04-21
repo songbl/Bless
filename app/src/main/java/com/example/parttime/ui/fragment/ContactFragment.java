@@ -1,5 +1,6 @@
 package com.example.parttime.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,7 +9,6 @@ import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.entity.node.BaseNode;
-import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.example.parttime.R;
 import com.example.parttime.base.BaseFragment;
@@ -44,21 +44,20 @@ public class ContactFragment extends BaseFragment {
 
     @BindView(R.id.rv_list)
     RecyclerView rvList;
-    @BindView(R.id.fab)
-    FloatingActionButton fab;
+    @BindView(R.id.fab_group)
+    FloatingActionButton fab_group;
     private Unbinder unbinder;
 
     //    private RecyclerView mRecyclerView;
+
 //    private FloatingActionButton floatingActionButton;
     private NodeTreeAdapter adapter = new NodeTreeAdapter();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_a, null);
+        View view = inflater.inflate(R.layout.fragment_contacts, null);
         unbinder = ButterKnife.bind(this, view);
-//        mRecyclerView = view.findViewById(R.id.rv_list);
-//        floatingActionButton = view.findViewById(R.id.fab);
         return view;
     }
 
@@ -89,16 +88,23 @@ public class ContactFragment extends BaseFragment {
 
 
 
-    @OnClick({R.id.rv_list, R.id.fab})
+    @OnClick({R.id.rv_list, R.id.fab_group,R.id.fab_contacts})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rv_list:
                 break;
-            case R.id.fab:
-                Log.e("songbl", "hhhhhhhhhhhhhh" + mHelper.toString());
-//                mHelper.loadNewFragment( CFragment.NewInstanse());
-//                goToActivity(ContractChangeActivity.class);
-//                mHelper.addNewFragment(AFragment.this, CFragment.NewInstanse());
+            case R.id.fab_group:
+                //群组管理
+                Intent intent = new Intent(getActivity(), ContractChangeActivity.class);
+                intent.putExtra("userId",UserEntity.getSingleton().getUserId());
+                intent.putExtra("type",1);
+                startActivity(intent);
+                break;
+            case R.id.fab_contacts:
+                Intent inten2t = new Intent(getActivity(), ContractChangeActivity.class);
+                inten2t.putExtra("userId",UserEntity.getSingleton().getUserId());
+                inten2t.putExtra("type",2);
+                startActivity(inten2t);
                 break;
         }
     }
@@ -134,7 +140,10 @@ public class ContactFragment extends BaseFragment {
                             @Override
                             public boolean onItemLongClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
                                 //群组管理
-                                goToActivity(ContractChangeActivity.class);
+                                Intent intent = new Intent(getActivity(), ContractChangeActivity.class);
+                                intent.putExtra("userId",userId);
+                                intent.putExtra("type",1);
+                                startActivity(intent);
                                 return true;
                             }
                         });

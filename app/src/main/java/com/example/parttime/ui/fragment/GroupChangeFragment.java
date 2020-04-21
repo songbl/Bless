@@ -13,6 +13,7 @@ import com.example.parttime.R;
 import com.example.parttime.base.BaseFragment;
 import com.example.parttime.entity.node.Group;
 import com.example.parttime.entity.node.GroupEntity;
+import com.example.parttime.entity.node.UserEntity;
 import com.example.parttime.net.ApiService;
 import com.example.parttime.net.AppHttpClient;
 import com.example.parttime.net.bean.UserBean;
@@ -37,7 +38,7 @@ import butterknife.Unbinder;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class ChangeFragment extends BaseFragment {
+public class GroupChangeFragment extends BaseFragment {
     @BindView(R.id.fab)
     FloatingActionButton fab;
     @BindView(R.id.recyclerView)
@@ -47,8 +48,8 @@ public class ChangeFragment extends BaseFragment {
     private GroupList2Adapter groupList2Adapter ;
     private int userId;
 
-    public static ChangeFragment NewInstanse(int useIrd) {
-        ChangeFragment latestNewsFragment = new ChangeFragment();
+    public static GroupChangeFragment NewInstanse(int useIrd) {
+        GroupChangeFragment latestNewsFragment = new GroupChangeFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("userId", useIrd);
         Log.e("songbl", "新的Fragment" + latestNewsFragment.toString());
@@ -90,14 +91,34 @@ public class ChangeFragment extends BaseFragment {
                 String content = null;
                 switch (view.getId()) {
                     case R.id.tweetDate:
+                        GroupEntity groupEntity = new GroupEntity();
+                        groupEntity.setUserId(userId);
+                        groupEntity.setGroupId(list.get(position).getGroupId());
                         content = "name:" + "删除"+list.get(position).getGroupName();
-                        list.remove(position);
+                        AppHttpClient.getInstance().getRetrofit().create(ApiService.class)
+                                .deleteGroup(groupEntity)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new CallBackWrapper<Boolean>() {
+                                    @Override
+                                    public void onSuccess(Boolean b) {
+                                        ToastUtil.showShort("删除组成功");
+                                        list.remove(position);
+                                        groupList2Adapter.notifyDataSetChanged();
+                                    }
+
+                                    @Override
+                                    public void onError(String msg, int code) {
+                                        ToastUtil.showShort(msg);
+                                    }
+                                });
+
                         break;
                     default:
                         break;
                 }
                ToastUtil.showShort(content);
-             groupList2Adapter.notifyDataSetChanged();
+
             }
         });
 
@@ -114,7 +135,26 @@ public class ChangeFragment extends BaseFragment {
                                 new OnInputConfirmListener() {
                                     @Override
                                     public void onConfirm(String text) {
-                                        ToastUtil.showShort("input text: " + text);
+                                        GroupEntity groupEntity = new GroupEntity();
+                                        groupEntity.setUserId(userId);
+                                        groupEntity.setGroupId(list.get(position).getGroupId());
+                                        groupEntity.setGroupName(text);
+                                        AppHttpClient.getInstance().getRetrofit().create(ApiService.class)
+                                                .updateGroup(groupEntity)
+                                                .subscribeOn(Schedulers.io())
+                                                .observeOn(AndroidSchedulers.mainThread())
+                                                .subscribe(new CallBackWrapper<Boolean>() {
+                                                    @Override
+                                                    public void onSuccess(Boolean b) {
+                                                        ToastUtil.showShort("修改组成功");
+                                                        initDate(userId);
+                                                    }
+
+                                                    @Override
+                                                    public void onError(String msg, int code) {
+                                                        ToastUtil.showShort(msg);
+                                                    }
+                                                });
                                     }
                                 })
                         .show();
@@ -173,6 +213,26 @@ public class ChangeFragment extends BaseFragment {
                                 new OnInputConfirmListener() {
                                     @Override
                                     public void onConfirm(String text) {
+                                        GroupEntity entity = new GroupEntity();
+                                        entity.setGroupName(text);
+                                        entity.setUserId(UserEntity.getSingleton().getUserId());
+                                        AppHttpClient.getInstance().getRetrofit().create(ApiService.class)
+                                                .addContactsGroup(entity)
+                                                .subscribeOn(Schedulers.io())
+                                                .observeOn(AndroidSchedulers.mainThread())
+                                                .subscribe(new CallBackWrapper<Boolean>() {
+                                                    @Override
+                                                    public void onSuccess(Boolean b) {
+                                                        ToastUtil.showShort("添加组成功");
+                                                        initDate(UserEntity.getSingleton().getUserId());
+                                                    }
+
+                                                    @Override
+                                                    public void onError(String msg, int code) {
+                                                        ToastUtil.showShort(msg);
+                                                    }
+                                                });
+
                                         ToastUtil.showShort("input text: " + text);
                                     }
                                 })

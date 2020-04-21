@@ -63,8 +63,8 @@ public class LoginActivity extends BaseActivity {
                 loginBean.setMobile(etUsername.getText().toString());
                 loginBean.setPassword(etPassword.getText().toString());
 
-//                loginBean.setMobile("15562006399");
-//                loginBean.setPassword("123456");
+                loginBean.setMobile("15562006399");
+                loginBean.setPassword("123456");
                 loadingPopup.show();
                 AppHttpClient.getInstance().getRetrofit().create(ApiService.class)
                         .loginWithPassword(loginBean)
